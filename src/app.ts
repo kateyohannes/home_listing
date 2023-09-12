@@ -1,5 +1,12 @@
 
 import fastify, { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
+import mongoose from "mongoose";
+
+mongoose.connect("mongodb://localhost/test_mongo").then(()=>{
+    console.log("mongodb is on ...");
+}).catch((err)=>{
+    console.log(err);
+});
 
 export const server : FastifyInstance = fastify({
     logger : true
