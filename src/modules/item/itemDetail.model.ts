@@ -12,6 +12,7 @@ const ItemDetailSchema = new Schema({
         required : true
     },
     discount : {
+        reason : String,
         percentage : Number,
         startedAt : Date,
         endAt : Date
