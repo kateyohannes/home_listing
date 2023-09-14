@@ -23,7 +23,7 @@ const DeliverySchema = new Schema({
         enum : Status,
         default : Status.Inprogress
     },
-    recivedAt : {
+    receivedAt : {
         type : Date,
         default : Date.now
     },
