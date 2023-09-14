@@ -4,7 +4,7 @@ import { Schema, model } from "mongoose";
 
 enum Status {
     Complete = 'Complete',
-    Cancled = 'Cancled',
+    Cancled = 'Complete',
     Inprogress = 'Inprogress',
     Delivered = 'Delivered'
 }
@@ -12,7 +12,7 @@ enum Status {
 const OrderDetailSchema = new Schema({
     item : {
         type : Schema.Types.ObjectId,
-        ref : "item",
+        ref : "item_detail",
         required : true
     },
     quantity : {
@@ -43,19 +43,19 @@ const OrderSchema = new Schema({
         ref : "user",
         required : true
     },
-    address : {
-        type : Schema.Types.ObjectId,
-    },
-    newAddress : Address,
+    // address : {
+    //     type : Schema.Types.ObjectId,
+    // },
+    // newAddress : Address,
     order : [ OrderDetailSchema ],
     bickerPrice : { 
         type : Number, 
         required : true
     },
-    applyPromo : {
-        type : Schema.Types.ObjectId, 
-        ref : "promo"
-    },
+    // applyPromo : {
+    //     type : Schema.Types.ObjectId, 
+    //     ref : "promo"
+    // },
     total : {
         type : String,
         required : true
@@ -65,7 +65,7 @@ const OrderSchema = new Schema({
         enum : Status,
         default : Status.Complete
     },
-    recivedAt : {
+    receivedAt : {
         type : Date,
     }
 
