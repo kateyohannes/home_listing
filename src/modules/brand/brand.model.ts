@@ -11,5 +11,5 @@ const BrandSchema = new Schema({
     }
 });
 
-
-module.exports = model("brand", BrandSchema);
+const Brand = model("brand", BrandSchema);
+export default Brand
