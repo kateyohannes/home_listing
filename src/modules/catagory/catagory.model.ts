@@ -10,4 +10,5 @@ const CatagorySchema = new Schema({
     description : { type : String }
 });
 
-module.exports = model('catagory', CatagorySchema);
+const Catagory = model('catagory', CatagorySchema);
+export default Catagory;

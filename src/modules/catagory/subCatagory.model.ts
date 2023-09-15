@@ -13,4 +13,5 @@ const SubcatagorySchema = new Schema({
     }
 });
 
-module.exports = model("sub_catagory", SubcatagorySchema);
+const SubCatagory = model("sub_catagory", SubcatagorySchema);
+export default SubCatagory;
