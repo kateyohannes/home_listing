@@ -4,19 +4,27 @@ import { FastifyInstance } from "fastify";
 
 import mongoose from "mongoose";
 
-const models = {};
+import Brand from "../model/Brand";
+import Catagory from "../model/Catagory";
+import Subcatagory from "../model/Subcatagory";
+
+const models = {
+	Brand,
+	Catagory,
+	Subcatagory	
+};
 
 const connectDB = async (fastify : FastifyInstance, options : any)=>{
 	try{
 		mongoose.connection.on('connected', ()=>{
 			fastify.log.info({
-				actor : 'MongoDB',
+				actor : 'MongogB',
 			}, 'connected');
 		});
 
 		mongoose.connection.on('disconnected', ()=>{
 			fastify.log.error({
-				actor : 'MongoDB',
+				actor : 'MongogB',
 			}, 'disconnected');
 		});
 
