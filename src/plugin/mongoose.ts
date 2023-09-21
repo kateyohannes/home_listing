@@ -4,13 +4,23 @@ import { FastifyInstance } from "fastify";
 
 import mongoose from "mongoose";
 
+import User from "../model/user";
+import Item from "../model/item";
+import Order from "../model/order"
 import Brand from "../model/brand";
+import Delivery from "../model/delivery";
 import Catagory from "../model/catagory";
+import ItemDetail from "../model/itemDetail";
 import Subcatagory from "../model/subcatagory";
 
 const models = {
+	Item,
+	User,
+	Order,
 	Brand,
 	Catagory,
+	Delivery,
+	ItemDetail,
 	Subcatagory	
 };
 
