@@ -4,9 +4,9 @@ import { FastifyInstance } from "fastify";
 
 import mongoose from "mongoose";
 
-import Brand from "../model/Brand";
-import Catagory from "../model/Catagory";
-import Subcatagory from "../model/Subcatagory";
+import Brand from "../model/brand";
+import Catagory from "../model/catagory";
+import Subcatagory from "../model/subcatagory";
 
 const models = {
 	Brand,
