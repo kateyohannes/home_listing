@@ -3,9 +3,9 @@ import { z } from "zod";
 import { buildJsonSchemas } from "fastify-zod";
 
 const ItemDetailForm = z.object({
-    item : z.string(),
+    item : z.string().optional(),
     price : z.number(),
-    discound : z.object({
+    discount : z.object({
         reason : z.string(),
         percentage : z.number(),
         startedAt : z.string().datetime(),
@@ -15,12 +15,10 @@ const ItemDetailForm = z.object({
 });
 
 const ItemDiscountForm = z.object({
-    discound : z.object({
-        reason : z.string(),
-        percentage : z.number(),
-        startedAt : z.string().datetime(),
-        endAt : z.string().datetime()
-    })
+    reason : z.string(),
+    percentage : z.number(),
+    startedAt : z.string().datetime(),
+    endAt : z.string().datetime()
 });
 
 const ItemDetailUpdateForm = z.object({
@@ -29,9 +27,10 @@ const ItemDetailUpdateForm = z.object({
 });
 
 const ItemDetailResponse = z.object({
-    item : z.string(),
+    _id : z.string(),
+    item : z.any(),
     price : z.number(),
-    discound : z.object({
+    discount : z.object({
         reason : z.string(),
         percentage : z.number(),
         startedAt : z.string().datetime(),
@@ -42,10 +41,11 @@ const ItemDetailResponse = z.object({
 
 const ItemDetailResponses = z.array(ItemDetailResponse);
 
-export type ItemDetailCreateInput = z.infer<typeof ItemDetailForm>;
-export type ItemDetailUpdateInput = z.infer<typeof ItemDetailUpdateForm>;
+export type ItemDetailCreateForm = z.infer<typeof ItemDetailForm>;
+export type ItemDetailUpdateForm = z.infer<typeof ItemDetailUpdateForm>;
+export type ItemDiscountForm = z.infer<typeof ItemDiscountForm>
 
-const { schemas : itemDetailSchema, $ref } = buildJsonSchemas({
+export const { schemas : itemDetailSchema, $ref } = buildJsonSchemas({
     ItemDetailForm,
     ItemDiscountForm,
     ItemDetailUpdateForm,
