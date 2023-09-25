@@ -9,6 +9,7 @@ const CatagoryForm = z.object({
 });
 
 const CatagoryResponse = z.object({
+    _id : z.string(),
     name : z.string(),
     image : z.string().optional(),
     description : z.string().optional()
