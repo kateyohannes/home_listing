@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
-import { $ref, brandInput } from '../schema/Brand';
+import { $ref, brandInput } from '../schema/brand';
 
 const brandRoute = async (fastify : FastifyInstance)=>{
     fastify.route({
@@ -39,6 +39,7 @@ const brandRoute = async (fastify : FastifyInstance)=>{
         method : 'POST',
         schema : {
             body : $ref('brandForm'),
+            
             response : {
                 201 : $ref('brandResponse')
             }
