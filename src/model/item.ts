@@ -11,8 +11,7 @@ const ItemSchema = new Schema({
         required : true
     },
     itemImage : {
-        type : String,
-        required : true
+        type : String
     },
     itemCatagory : [{
         type : Schema.Types.ObjectId,
