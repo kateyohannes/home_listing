@@ -1,11 +1,17 @@
 
 import multer from "fastify-multer";
-import fastifyCors from "@fastify/cors";
-import fastify, { FastifyInstance, FastifyRequest } from "fastify";
+import fastify, { FastifyInstance, FastifyRequest, FastifySchema } from "fastify";
 
 import db from "./plugin/mongoose";
-import brandRoute from "./router/Brand";
-import { brandSchema } from "./schema/Brand";
+import brandRoute from "./route/brand";
+
+import { brandSchema } from "./schema/brand";
+import { catagorySchema } from "./schema/catagory";
+import { itemSchema } from "./schema/item";
+import { itemDetailSchema } from "./schema/itemDetail";
+import catagoryRoute from "./route/catagory";
+import itemRoute from "./route/item";
+import itemDeatilRoute from "./route/itemDetail";
 
 
 export const server : FastifyInstance = fastify({
@@ -23,14 +29,29 @@ server.decorate('multer', { parser });
 server.register(multer.contentParser);
 server.register(db, { uri });
 
+declare module "fastify"{
+    export interface FastifyInstance{
+        multer : any
+        db : any   
+    }
+    export interface FastifyRequest{
+        file : any
+    }
+    export interface FastifySchema{
+        file? : any
+    }
+}
 async function main(){
-    for(const schema of [...brandSchema]){
+    for(const schema of [...brandSchema, ...catagorySchema, ...itemSchema, ...itemDetailSchema]){
         server.addSchema(schema);
     }
 
     try{
 
         server.register(brandRoute, { prefix : "/brand" });
+        server.register(catagoryRoute, { prefix : "/catagory"});
+        server.register(itemRoute, { prefix : "/item" });
+        server.register(itemDeatilRoute, { prefix : "/item_detail"})
 
         await server.listen({
             port,
