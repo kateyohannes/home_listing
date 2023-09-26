@@ -2,7 +2,9 @@
 import multer from "fastify-multer";
 import fastify, { FastifyInstance, FastifyRequest, FastifySchema } from "fastify";
 
-import db from "./plugin/mongoose";
+import rdb from "./plugin/redis";
+import mdb from "./plugin/mongoose";
+
 import brandRoute from "./route/brand";
 
 import { brandSchema } from "./schema/brand";
@@ -27,7 +29,8 @@ const parser = multer({
 server.decorate('multer', { parser });
 
 server.register(multer.contentParser);
-server.register(db, { uri });
+server.register(mdb, { uri });
+server.register(rdb);
 
 declare module "fastify"{
     export interface FastifyInstance{
@@ -58,7 +61,6 @@ async function main(){
             host : "0.0.0.0"
         })
 
-        console.log("Server is on ...");
     }catch(err){
         console.error(err);
         process.exit(1);
