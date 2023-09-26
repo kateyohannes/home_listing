@@ -19,6 +19,7 @@
     "fastify-plugin": "^4.5.1",
     "fastify-zod": "^1.4.0",
     "mongoose": "^7.5.1",
+    "redis": "^4.6.10",
     "zod": "^3.22.2",
     "zod-to-json-schema": "^3.21.4"
   },
