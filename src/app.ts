@@ -31,11 +31,17 @@ server.register(multer.contentParser);
 
 declare module "fastify"{
     export interface FastifyInstance{
-        multer : any
         db : any   
+        multer : any
+        redis : any
+        asyncVerifyJWT : any
+        asyncVerifyAdmin : any
+        asyncVerifyUsernameAndPassword : any
     }
     export interface FastifyRequest{
         file : any
+        user : any
+        token : String
     }
     export interface FastifySchema{
         file? : any
@@ -45,7 +51,8 @@ declare module "fastify"{
 server.register(fastifyAutoload, {
     dir : path.join(__dirname, 'plugins'),
     options : {
-        uri
+        uri,
+        secret : "a09sdufa09dsfas-d0fi-d0f"
     }
 });
 async function main(){
