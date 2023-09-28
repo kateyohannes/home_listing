@@ -24,7 +24,7 @@ const models = {
 	Subcatagory	
 };
 
-async function mongoConnect(fastify : FastifyInstance, options : any){
+export default fp(async (fastify : FastifyInstance, options : { uri : any })=>{
 	try{
 		mongoose.connection.on('connected', ()=>{
 			fastify.log.info({
@@ -45,8 +45,4 @@ async function mongoConnect(fastify : FastifyInstance, options : any){
 	}catch(err){
 		console.log(err)
 	}
-}
-
-const mdb = fp(mongoConnect);
-export default mdb;
-
+});
