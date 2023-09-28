@@ -1,16 +1,15 @@
-
+import path from "path";
 import multer from "fastify-multer";
+import fastifyAutoload from "@fastify/autoload";
 import fastify, { FastifyInstance, FastifyRequest, FastifySchema } from "fastify";
 
-import rdb from "./plugin/redis";
-import mdb from "./plugin/mongoose";
-
-import brandRoute from "./route/brand";
 
 import { brandSchema } from "./schema/brand";
 import { catagorySchema } from "./schema/catagory";
 import { itemSchema } from "./schema/item";
 import { itemDetailSchema } from "./schema/itemDetail";
+
+import brandRoute from "./route/brand";
 import catagoryRoute from "./route/catagory";
 import itemRoute from "./route/item";
 import itemDeatilRoute from "./route/itemDetail";
@@ -29,8 +28,6 @@ const parser = multer({
 server.decorate('multer', { parser });
 
 server.register(multer.contentParser);
-server.register(mdb, { uri });
-server.register(rdb);
 
 declare module "fastify"{
     export interface FastifyInstance{
@@ -44,6 +41,13 @@ declare module "fastify"{
         file? : any
     }
 }
+
+server.register(fastifyAutoload, {
+    dir : path.join(__dirname, 'plugin'),
+    options : {
+        uri
+    }
+});
 async function main(){
     for(const schema of [...brandSchema, ...catagorySchema, ...itemSchema, ...itemDetailSchema]){
         server.addSchema(schema);
@@ -59,7 +63,7 @@ async function main(){
         await server.listen({
             port,
             host : "0.0.0.0"
-        })
+        });
 
     }catch(err){
         console.error(err);
