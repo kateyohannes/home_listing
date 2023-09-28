@@ -43,7 +43,7 @@ declare module "fastify"{
 }
 
 server.register(fastifyAutoload, {
-    dir : path.join(__dirname, 'plugin'),
+    dir : path.join(__dirname, 'plugins'),
     options : {
         uri
     }
