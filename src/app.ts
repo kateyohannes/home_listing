@@ -32,6 +32,7 @@ server.register(multer.contentParser);
 declare module "fastify"{
     export interface FastifyInstance{
         db : any   
+        jwt : any
         multer : any
         redis : any
         asyncVerifyJWT : any
@@ -55,6 +56,7 @@ server.register(fastifyAutoload, {
         secret : "a09sdufa09dsfas-d0fi-d0f"
     }
 });
+
 async function main(){
     for(const schema of [...brandSchema, ...catagorySchema, ...itemSchema, ...itemDetailSchema]){
         server.addSchema(schema);
