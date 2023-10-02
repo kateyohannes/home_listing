@@ -37,8 +37,8 @@ const orderResponse = z.object({
 
 const orderResponses = z.array(orderResponse);
 
-export type orderCreateInput = z.infer<typeof orderForm>;
-export type orderUpdateInput = z.infer<typeof orderUpdateForm>;
+export type OrderCreateInput = z.infer<typeof orderForm>;
+export type OrderUpdateInput = z.infer<typeof orderUpdateForm>;
 export const { schemas : orderSchema, $ref} = buildJsonSchemas({
     orderForm,
     orderUpdateForm,
