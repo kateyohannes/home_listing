@@ -8,6 +8,11 @@ const profileRoute = async function(fastify : FastifyInstance){
     fastify.route({
         method : "GET",
         url : "/",
+
+        preHandler : fastify.auth([
+            fastify.asyncVerifyJWT
+        ]),
+        logLevel: 'warn',
         handler : async (request : FastifyRequest, reply : FastifyReply)=>{
             try{
                 const { User } = fastify.db.models;
@@ -23,6 +28,10 @@ const profileRoute = async function(fastify : FastifyInstance){
     fastify.route({
         method : "PUT",
         url : "/",
+        preHandler : fastify.auth([
+            fastify.asyncVerifyJWT
+        ]),
+        logLevel: 'warn',
         handler : async(request : FastifyRequest, reply : FastifyReply)=>{
             const body = request.body;
             try{
@@ -44,6 +53,10 @@ const profileRoute = async function(fastify : FastifyInstance){
     fastify.route({
         method : "POST",
         url : "/address",
+        preHandler : fastify.auth([
+            fastify.asyncVerifyJWT
+        ]),
+        logLevel: 'warn',
         handler : async(request : FastifyRequest, reply : FastifyReply)=>{
             const body = request.body;
             try{
@@ -65,6 +78,10 @@ const profileRoute = async function(fastify : FastifyInstance){
     // fastify.route({
     //     method : "PUT",
     //     url : "/address/:id",
+    //     preHandler : fastify.auth([
+    //         fastify.asyncVerifyJWT
+    //     ]),
+    //     logLevel: 'warn',
     //     handler : async(request : FastifyRequest<{
     //         Params : { id : String }
     //     }>, reply : FastifyReply)=>{
@@ -89,6 +106,10 @@ const profileRoute = async function(fastify : FastifyInstance){
     fastify.route({
         method : "DELETE",
         url : "/address/:id",
+        preHandler : fastify.auth([
+            fastify.asyncVerifyJWT
+        ]),
+        logLevel: 'warn',
         handler : async(request : FastifyRequest<{
             Params :{ id : String }
         }>, reply : FastifyReply)=>{
