@@ -64,15 +64,4 @@ export default fp(async (fastify : FastifyInstance, options : any)=> {
             reply.code(401).send(err);
         }
     });
-
-    fastify.decorate("asyncVerifyAdmin", async(request : FastifyRequest, reply : FastifyReply)=>{
-        const { role } = request.user;
-        try{
-            if(role != 'Admin'){
-                throw new Error('Not Admin!')
-            }
-        }catch(err){
-            reply.code(401).send(err);
-        }
-    });
 });
