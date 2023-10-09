@@ -29,26 +29,6 @@ server.decorate('multer', { parser });
 
 server.register(multer.contentParser);
 
-declare module "fastify"{
-    export interface FastifyInstance{
-        db : any   
-        jwt : any
-        multer : any
-        redis : any
-        asyncVerifyJWT : any
-        asyncVerifyAdmin : any
-        asyncVerifyUsernameAndPassword : any
-    }
-    export interface FastifyRequest{
-        file : any
-        user : any
-        token : String
-    }
-    export interface FastifySchema{
-        file? : any
-    }
-}
-
 server.register(fastifyAutoload, {
     dir : path.join(__dirname, 'plugins'),
     options : {
