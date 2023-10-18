@@ -9,10 +9,10 @@ import { catagorySchema } from "./schema/catagory";
 import { itemSchema } from "./schema/item";
 import { itemDetailSchema } from "./schema/itemDetail";
 
-import brandRoute from "./route/brand";
-import catagoryRoute from "./route/catagory";
-import itemRoute from "./route/item";
-import itemDeatilRoute from "./route/itemDetail";
+import brandRoute from "./routes/brand";
+import catagoryRoute from "./routes/catagory";
+import itemRoute from "./routes/item";
+import itemDeatilRoute from "./routes/item_detail";
 
 
 export const server : FastifyInstance = fastify({
@@ -29,13 +29,25 @@ server.decorate('multer', { parser });
 
 server.register(multer.contentParser);
 
-server.register(fastifyAutoload, {
-    dir : path.join(__dirname, 'plugins'),
-    options : {
-        uri,
-        secret : "a09sdufa09dsfas-d0fi-d0f"
+declare module "fastify"{
+    export interface FastifyInstance{
+        db : any   
+        jwt : any
+        redis : any
+        multer : any
+        checkRole : any,
+        asyncVerifyJWT : any
+        asyncVerifyUsernameAndPassword : any
     }
-});
+    export interface FastifyRequest{
+        file : any
+        user : any
+        token : String
+    }
+    export interface FastifySchema{
+        file? : any
+    }
+}
 
 async function main(){
     for(const schema of [...brandSchema, ...catagorySchema, ...itemSchema, ...itemDetailSchema]){
@@ -43,6 +55,21 @@ async function main(){
     }
 
     try{
+
+        server.register(fastifyAutoload, {
+            dir : path.join(__dirname, 'plugins'),
+            options : {
+                uri,
+                secret : "a09sdufa09dsfas-d0fi-d0f"
+            }
+        });
+
+        // server.register(fastifyAutoload,{
+        //     dir : path.join(__dirname, 'routes'),
+        //     options : {
+        //         prefix : "/api/v1"
+        //     } 
+        // })
 
         server.register(brandRoute, { prefix : "/brand" });
         server.register(catagoryRoute, { prefix : "/catagory"});
@@ -55,7 +82,7 @@ async function main(){
         });
 
     }catch(err){
-        console.error(err);
+        server.log.warn(err);
         process.exit(1);
     }
 }

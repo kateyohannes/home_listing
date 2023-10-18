@@ -1,22 +1,22 @@
 
-import fastify, { FastifyInstance, FastifyRequest, FastifyReply } from "fastify"
+// import fastify, { FastifyInstance, FastifyRequest, FastifySchema } from "fastify"
 
-declare module "fastify"{
-    export interface FastifyInstance{
-        db : any   
-        jwt : any
-        multer : any
-        redis : any
-        asyncVerifyJWT : any
-        asyncVerifyAdmin : any
-        asyncVerifyUsernameAndPassword : any
-    }
-    export interface FastifyRequest{
-        file : any
-        user : any
-        token : String
-    }
-    export interface FastifySchema{
-        file? : any
-    }
-}
+// declare module "fastify"{
+//     export interface FastifyInstance{
+//         db : any   
+//         jwt : any
+//         redis : any
+//         multer : any
+//         checkRole : any,
+//         asyncVerifyJWT : any
+//         asyncVerifyUsernameAndPassword : any
+//     }
+//     export interface FastifyRequest{
+//         file : any
+//         user : any
+//         token : String
+//     }
+//     export interface FastifySchema{
+//         file? : any
+//     }
+// }
