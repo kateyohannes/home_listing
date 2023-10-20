@@ -1,30 +1,17 @@
+
+### The link below will check IP Geolocation
 ```
-npm install casbin fastify-casbin
+https://api.iplocation.net/?ip=106.188.174.215
+response body
+{
+    "ip":"106.188.174.215",
+    "ip_number":"1790750423",
+    "ip_version":4,
+    "country_name":"Japan",
+    "country_code2":"JP",
+    "isp":"KDDI Corporation",
+    "response_code":"200",
+    "response_message":"OK"
+}
 ```
-### Building checkRole middleware
-```
-//import { FastifyRequest, FastifyReply } from 'fastify';
-//import { findOneUser } from '../services/userService';
 
-const checkRole = (roles: string[]) => async (
-    request: FastifyRequest,
-    reply: FastifyReply,
-    next: () => void
-): Promise<void> => {
-
-    const userId = request.user.id;
-    const user = await findOneUser({ id: userId });
-
-    if (!user)
-        return reply.status(401)
-            .send({ success: false, error: 'Unauthorized' });
-
-    const roleExists = roles.some(role => role === user['role']);
-
-    if (!roleExists) 
-        return reply.status(401)
-            .send({ success: false, error: 'Unauthorized' });
-    
-    return next();
-};
-```
