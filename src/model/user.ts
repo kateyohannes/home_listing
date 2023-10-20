@@ -9,7 +9,7 @@ enum Role {
 }
 
 const AddressSchema = new Schema({
-    location : {
+    geolocation : {
         latitude : Number,
         longitude : Number
     },
@@ -20,19 +20,10 @@ const AddressSchema = new Schema({
 })
 
 const UserSchema = new Schema({
-    username : {
-        type : String,
-        required : true
-    },
-    password : {
-        type : String,
-        min : 6,
-        required : true
-    },
-    phoneNumber : {
-        type : String,
-        requierd : true
-    },
+    username : { type : String },
+    email : { type : String },
+    password : { type : String },
+    phoneNumber : { type : String },
     role : [{
         type : String,
         enum : Role,
@@ -50,8 +41,8 @@ const UserSchema = new Schema({
             enum : ['Male', 'Female']        
         },
         bod : Date,
-        address : [ AddressSchema ]
     },
+    address : [ AddressSchema ],
     services: {
         type: Map,
         of: String
