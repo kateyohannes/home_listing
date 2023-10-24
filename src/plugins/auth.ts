@@ -58,6 +58,7 @@ export default fp(async (fastify : FastifyInstance, options : any)=> {
             if(!isMatch){
                 throw new Error('Auth Failed: Password');
             }
+            
             request.user = user
         
         }catch(err){
