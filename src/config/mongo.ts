@@ -1,9 +1,9 @@
-import { MongoClient } from "mongodb";
+import { Db, MongoClient } from "mongodb";
 
 const connection_string : string = Bun.env.CONNECTION_STRING;
 const database_name : string = Bun.env.DATABASE_NAME;
 
-let _db : any;
+let _db : Db;
 export default {
     connect : async()=>{
         const client = await new MongoClient(connection_string);
