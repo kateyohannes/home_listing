@@ -5,6 +5,7 @@ import { logger } from 'hono/logger'
 import mongo from './config/mongo'
 
 import item from './routes/item.route'
+import cart from './routes/cart.route'
 import brand from './routes/brand.route'
 import catagory from './routes/catagory.route'
 
@@ -16,6 +17,7 @@ app.use(cors())
 app.use('*', logger())
 
 app.route('/item', item)
+app.route('/cart', cart)
 app.route('/brand', brand)
 app.route('/catagory', catagory)
 
