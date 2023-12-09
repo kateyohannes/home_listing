@@ -4,7 +4,7 @@ import { Db, ObjectId } from "mongodb";
 import { zValidator } from "@hono/zod-validator";
 
 import mongo from "../config/mongo";
-import { itemSchema } from "../schemas/item.schema";
+import { itemSchema, itemsDetailSchema } from "../schemas/item.schema";
 
 const route : Hono = new Hono();
 
@@ -38,10 +38,16 @@ route.post("/add_item",
     }
 )
 
-route.post("/add_item_detail/:_id", async(c : Context)=>{
+route.post("/add_item_detail/:_id",
+    zValidator("json", itemsDetailSchema, (result, c : Context)=>{
+        if(!result.success){
+            throw new Error(`Invalid Input!, ${result.error}`)
+        }
+    }),
+    async(c : any)=>{
     const db : Db = mongo.getDb()
     const { _id } = c.req.param()
-    const body = await c.req.json()
+    const body = await c.req.valid("json")
     const doc : {} = await db.collection("item").updateOne({
         _id : new ObjectId(_id)
     },{
