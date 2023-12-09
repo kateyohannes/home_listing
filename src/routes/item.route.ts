@@ -21,7 +21,7 @@ route.get("/:_id", async (c : Context)=>{
     return c.json(data, 200)
 })
 
-route.post("/add", 
+route.post("/add_item", 
     zValidator("json", itemSchema, (result, c : Context)=>{
         if(!result.success){
             throw new Error(`Invalid Input!, ${result.error}`)
@@ -38,7 +38,7 @@ route.post("/add",
     }
 )
 
-route.post("/add/:_id", async(c : Context)=>{
+route.post("/add_item_detail/:_id", async(c : Context)=>{
     const db : Db = mongo.getDb()
     const { _id } = c.req.param()
     const body = await c.req.json()
