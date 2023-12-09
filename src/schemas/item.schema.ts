@@ -2,6 +2,18 @@ import { z } from "zod";
 import { Db, ObjectId } from "mongodb";
 import mongo from "../config/mongo";
 
+
+export const itemsDetailSchema = z.object({
+    _id : z.string().optional(),
+    quantity : z.number(),
+    primary_color : z.string(),
+    secondary_color : z.string().optional(),
+    size : z.string().optional(),
+    unit : z.string().optional(),
+    image : z.string().optional(),
+    price_difference : z.number().default(0)
+})
+
 export const itemSchema = z.object({
     _id : z.instanceof(ObjectId).optional().transform((input)=>{
         return new ObjectId(input)
@@ -20,25 +32,13 @@ export const itemSchema = z.object({
             return true
         }),
     ),
-    // item_catagory :  z.string().optional().transform((input)=>{
-    //     return new ObjectId(input)
-    // }),
     item_name : z.string(),
-    item_details : z.array(
-        z.object({
-            _id : z.string().optional(),
-            quantity : z.number(),
-            primary_color : z.string(),
-            secondary_color : z.string().optional(),
-            size : z.string().optional(),
-            unit : z.string().optional(),
-            image : z.string().optional(),
-            price_difference : z.number().default(0)
-        })
-    ),
-    quantity : z.number().optional(),
+    item_details : z.array(itemsDetailSchema).optional(),
+    quantity : z.number().default(0),
     price : z.number(),
     features : z.array(z.string()).optional()
 });
+
+
 
 export type item = z.infer<typeof itemSchema>
