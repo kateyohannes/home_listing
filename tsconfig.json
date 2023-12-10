@@ -4,6 +4,15 @@
     "strict": true,
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
-    "types": ["bun-types"]
+    "types": ["bun-types"],
+    "baseUrl" : ".",
+    "paths": { 
+      "@route/*" : ["src/routes/*"],
+      "@config/*" : ["src/config/*"],
+      "@controller/*" : ["src/controllers/*"],
+      "@schema/*" : ["src/schemas/*"],
+      "@middleware/*" : ["src/middlewares/*"],
+      "@utils/*" : ["src/utils/*"],
+    }
   }
 }
