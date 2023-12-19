@@ -4,5 +4,7 @@ declare module "bun"{
         PORT : string
         CONNECTION_STRING : string
         DATABASE_NAME : string
+
+        JWT_SECRET : string
     }
 }
