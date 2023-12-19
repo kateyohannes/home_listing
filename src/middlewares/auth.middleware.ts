@@ -34,3 +34,13 @@ export const protect = async (c : Context, next : Next)=>{
         throw new Error('No token found!')
     }
 }
+
+export const isAdmin = async(c : Context, next : Next)=>{
+    const user = c.get('user');
+    if(user && user.isAdmin){
+        await next()
+    }else{
+        c.status(401)
+        throw new Error('Not Authorized!')
+    }
+}
