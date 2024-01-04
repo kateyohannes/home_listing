@@ -2,14 +2,11 @@ import { Context, Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { logger } from 'hono/logger'
 
-import mongo from './config/mongo'
+import mongo from '@config/mongo'
 
-import item from './routes/item.route'
-import cart from './routes/cart.route'
-import brand from './routes/brand.route'
-import catagory from './routes/catagory.route'
+import { item, cart, brand, catagory, order } from '@route/index'
 
-import { errorHandler, notFound } from './middlewares/error.middleware'
+import { errorHandler, notFound } from '@middleware/error.middleware'
 
 const app : Hono = new Hono()
 
@@ -20,6 +17,7 @@ app.route('/item', item)
 app.route('/cart', cart)
 app.route('/brand', brand)
 app.route('/catagory', catagory)
+app.route('/order', order)
 
 app.onError((err : Error, c : Context)=>{
     const error = errorHandler(c)
