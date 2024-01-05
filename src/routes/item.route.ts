@@ -52,8 +52,8 @@ route.post("/add_item_detail/:_id",
         _id : new ObjectId(_id)
     },{
         $push : {
-            item_details : {
-                _id: ObjectId.generate(),           
+            item_details : {         
+                _id: new ObjectId(),
                 ...body
             }
         },
