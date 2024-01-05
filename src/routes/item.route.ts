@@ -14,10 +14,10 @@ route.get("/", async (c : Context)=>{
     return c.json(data, 200)
 })
 
-route.get("/:_id", async (c : Context)=>{
+route.get("/:id", async (c : Context)=>{
     const db : Db = mongo.getDb()
-    const { _id } = c.req.param()
-    const data = await db.collection("item").findOne({ _id : new ObjectId(_id)})
+    const { id } = c.req.param()
+    const data = await db.collection("item").findOne({ _id : new ObjectId(id)})
     return c.json(data, 200)
 })
 
@@ -38,7 +38,7 @@ route.post("/add_item",
     }
 )
 
-route.post("/add_item_detail/:_id",
+route.post("/add_item_detail/:id",
     zValidator("json", itemsDetailSchema, (result, c : Context)=>{
         if(!result.success){
             throw new Error(`Invalid Input!, ${result.error}`)
@@ -46,10 +46,10 @@ route.post("/add_item_detail/:_id",
     }),
     async(c : any)=>{
     const db : Db = mongo.getDb()
-    const { _id } = c.req.param()
+    const { id } = c.req.param()
     const body = await c.req.valid("json")
     const doc : {} = await db.collection("item").updateOne({
-        _id : new ObjectId(_id)
+        _id : new ObjectId(id)
     },{
         $push : {
             item_details : {         
@@ -66,10 +66,10 @@ route.post("/add_item_detail/:_id",
 
 })
 
-route.delete("/delete/:_id", async(c : Context)=>{
+route.delete("/delete/:id", async(c : Context)=>{
     const db : Db = mongo.getDb()
-    const { _id } = c.req.param()
-    const doc = await db.collection("item").deleteOne({ _id : new ObjectId(_id)})
+    const { id } = c.req.param()
+    const doc = await db.collection("item").deleteOne({ _id : new ObjectId(id)})
     return c.json(doc, 204)
 })
 
