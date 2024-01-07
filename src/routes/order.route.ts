@@ -7,16 +7,32 @@ import { orderSchema } from '@schema/order.schema';
 const route : Hono = new Hono();
 
 route.get("/", async (c : Context)=>{
-    const db : Db  = mongo.getDb()
-    const data = await db.collection("order").find().toArray() 
-    return c.json(data, 200)
+
+    try{
+        const db : Db  = mongo.getDb()
+        const data = await db.collection("order").find().toArray() 
+        return c.json(data, 200)
+    }catch(err){ 
+        return c.json({
+            message : "Error",
+            err
+        }, 500)
+    }
 })
 
 route.get("/:_id", async (c : Context)=>{
-    const db : Db = mongo.getDb()
-    const { _id } = c.req.param()
-    const data = await db.collection("order").find({ _id : new ObjectId(_id)}).toArray()
-    return c.json(data, 200)
+    
+    try{
+        const db : Db = mongo.getDb()
+        const { _id } = c.req.param()
+        const data = await db.collection("order").find({ _id : new ObjectId(_id)}).toArray()
+        return c.json(data, 200)
+    }catch(err){ 
+        return c.json({
+            message : "Error",
+            err
+        }, 500)
+    }
 })
 
 route.post("/add", 
@@ -26,11 +42,25 @@ route.post("/add",
         }
     }), 
     async (c : any)=>{
-    const db : Db = mongo.getDb()
-    const body = await c.req.valid("json")
 
-    const data : {} = await db.collection("order").insertOne(body)
-    return c.json(data, 201)
+        try{
+            const db : Db = mongo.getDb()
+            const body = await c.req.valid("json")
+        
+            const data : {} = await db.collection("order").insertOne(body)
+            return c.json(data, 201)
+        }catch(err){ 
+            return c.json({
+                message : "Error",
+                err
+            }, 500)
+        }
+})
+
+route.post("/confirm_order/:id", async (c : Context)=>{
+    
+    const { id } = c.req.param()
+    return c.json(id, 201)
 })
 
 
