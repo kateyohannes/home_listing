@@ -55,22 +55,29 @@ route.post("/add",
                     { order_status : "on_cart"}
                 ]
             })
+
+            // it can be replace by upsert
             if(doc){
+                // add to the cart
                 await db.collection("cart").updateOne({
                     $and : [
                         { order_by : new ObjectId(body.order_by)},
                         { order_status : "on_cart"}
                     ],
                 },{
-                    $set : {
-                        cart_items : { $push : { ...body.cart_items }}
-                    }
+                    $push : { cart_items : body.cart_items }  
                 })
             }else{
+                // create new cart 
                 await db.collection("cart").insertOne(body)
             }
     
-            return c.json(doc, 201)
+            return c.json({
+                doc,
+                body : body,
+                cat_items : body.cart_items 
+            }, 201)
+
         }catch(err){ 
             return c.json({
                 message : "Error",
@@ -79,33 +86,6 @@ route.post("/add",
         }
     }
 )
-
-
-// route.post("/add"
-//     ,async (c : any)=>{
-//         const db : Db = mongo.getDb()
-//         // const body = await c.req.valid("json")
-//         const body = await c.req.json();
-//         const doc = await db.collection("cart").insertOne(body)
-//         return c.json(doc, 201)
-//     }
-// )
-
-// route.post("/add_items_to_cart/:_id", async (c : Context)=>{
-//     const db : Db = mongo.getDb()
-//     const { _id } = c.req.param()
-//     const body = await c.req.json()
-//     const doc = await db.collection("cart").updateOne({
-//         _id : new ObjectId(_id)
-//     },{
-//         $push : {
-//             cart_items : {
-//                 ...body
-//             }
-//         }
-//     })
-//     return c.json(doc, 200)
-// })
 
 route.delete("/delete/:_id", async (c : Context)=>{
 
