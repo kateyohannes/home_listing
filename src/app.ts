@@ -4,7 +4,7 @@ import { logger } from 'hono/logger'
 
 import mongo from '@config/mongo'
 
-import { item, cart, brand, catagory, order } from '@route/index'
+import { item, brand, catagory, order } from '@route/index'
 
 import { errorHandler, notFound } from '@middleware/error.middleware'
 
@@ -14,7 +14,6 @@ app.use(cors())
 app.use('*', logger())
 
 app.route('/item', item)
-app.route('/cart', cart)
 app.route('/brand', brand)
 app.route('/catagory', catagory)
 app.route('/order', order)
