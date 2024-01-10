@@ -4,9 +4,20 @@ import { logger } from 'hono/logger'
 
 import mongo from '@config/mongo'
 
-import { item, brand, catagory, order } from '@route/index'
+import { 
+    user,
+    item, 
+    brand, 
+    order,
+    catagory, 
+    wishlist
+} from '@route/index'
 
-import { errorHandler, notFound } from '@middleware/error.middleware'
+import { 
+    errorHandler, 
+    notFound 
+} from '@middleware/error.middleware'
+import { open } from 'fs'
 
 const app : Hono = new Hono()
 
@@ -17,6 +28,8 @@ app.route('/item', item)
 app.route('/brand', brand)
 app.route('/catagory', catagory)
 app.route('/order', order)
+app.route('/user', user)
+app.route('/wishlist', wishlist)
 
 app.onError((err : Error, c : Context)=>{
     const error = errorHandler(c)
@@ -37,6 +50,7 @@ export default {
             return;
         }
         console.log('MongoDB is connected ...')
-    })
+    }),
+    
 
 }
