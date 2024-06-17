@@ -10,14 +10,15 @@ import {
     brand, 
     order,
     catagory, 
-    wishlist
+    wishlist,
+    auth
 } from '@route/index'
 
 import { 
     errorHandler, 
     notFound 
 } from '@middleware/error.middleware'
-import { open } from 'fs'
+
 
 const app : Hono = new Hono()
 
@@ -30,6 +31,7 @@ app.route('/catagory', catagory)
 app.route('/order', order)
 app.route('/user', user)
 app.route('/wishlist', wishlist)
+app.route('/auth', auth)
 
 app.onError((err : Error, c : Context)=>{
     const error = errorHandler(c)
@@ -51,6 +53,4 @@ export default {
         }
         console.log('MongoDB is connected ...')
     }),
-    
-
 }
