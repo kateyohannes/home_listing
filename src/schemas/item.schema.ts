@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { Db, ObjectId } from "mongodb";
-import mongo from "../config/mongo";
+import mongo from "@config/mongo";
 
 
 export const itemsDetailSchema = z.object({
@@ -15,7 +15,7 @@ export const itemsDetailSchema = z.object({
 })
 
 export const itemSchema = z.object({
-    _id : z.instanceof(ObjectId).optional().transform((input)=>{
+    _id : z.string().optional().transform((input)=>{
         return new ObjectId(input)
     }),
     item_brand :  z.string().optional().transform((input)=>{
