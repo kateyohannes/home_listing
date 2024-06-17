@@ -3,8 +3,8 @@ import { Hono, Context } from "hono";
 import { Db, ObjectId } from "mongodb";
 import { zValidator } from "@hono/zod-validator";
 
-import mongo from "../config/mongo";
-import { itemSchema, itemsDetailSchema } from "../schemas/item.schema";
+import mongo from "@config/mongo";
+import { itemSchema, itemsDetailSchema } from "@schema/item.schema";
 
 const route : Hono = new Hono();
 
@@ -49,9 +49,6 @@ route.post("/add_item",
         try{
             const db : Db = mongo.getDb()
             const body = await c.req.valid("json")
-            const data = {
-    
-            }
             const doc = await db.collection("item").insertOne(body)
             return c.json(doc, 201)
         }catch(err){ 

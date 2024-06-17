@@ -1,6 +1,7 @@
 import  { Hono, Context } from 'hono'
-import mongo from '../config/mongo';
 import { Db, ObjectId } from 'mongodb';
+
+import mongo from '@config/mongo';
 import { zValidator } from '@hono/zod-validator';
 import { orderSchema } from '@schema/order.schema';
 
@@ -62,7 +63,6 @@ route.post("/confirm_order/:id", async (c : Context)=>{
     const { id } = c.req.param()
     return c.json(id, 201)
 })
-
 
 
 export default route;

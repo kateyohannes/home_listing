@@ -1,8 +1,8 @@
 
 import { Hono, Context } from "hono";
 import { Db, ObjectId } from "mongodb";
-import mongo from "../config/mongo";
-import { brandSchema } from "../schemas/brand.schema";
+import mongo from "@config/mongo";
+import { brandSchema } from "@schema/brand.schema";
 import { zValidator } from "@hono/zod-validator";
 
 const route : Hono = new Hono();
